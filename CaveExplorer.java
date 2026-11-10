@@ -3,8 +3,17 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class CaveExplorer {
+	private char[][] cave;
 	// Step 1: Zero parameter constructor to create the specified cave
-	
+	public CaveExplorer() {
+	    cave = new char[][] {
+	        {'R', 'R', 'R', 'R', 'R', 'R'},
+	        {'R', '.', '.', 'S', 'R', 'R'},
+	        {'R', '.', 'R', 'R', 'R', 'R'},
+	        {'R', '.', 'M', 'R', 'R', 'R'},
+	        {'R', 'R', 'R', 'R', 'R', 'R'}
+	    };
+	}
 	// Step 2: toString method
 	
 	// Step 3: solve method
@@ -28,6 +37,12 @@ public class CaveExplorer {
 	
 	public static void main(String[] args) {
 		System.out.println("Starting CaveExplorer");
+		
+		CaveExplorer ce1 = new CaveExplorer();
+
+		System.out.println("Rows: " + ce1.cave.length);
+		System.out.println("Columns: " + ce1.cave[0].length);
+		System.out.println("Starting position: " + ce1.cave[1][3]);
 		
 		// Create a CaveExplorer object and print the starting layout
 		
