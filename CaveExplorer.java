@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 public class CaveExplorer {
 	private char[][] cave;
+	private String path = "";
 	// Step 1: Zero parameter constructor to create the specified cave
 	public CaveExplorer() {
 	    cave = new char[][] {
@@ -29,7 +30,79 @@ public class CaveExplorer {
 	    return result;
 	}
 	// Step 3: solve method
-	
+	public boolean solve() {
+	    path = "";
+
+	    int row = -1;
+	    int col = -1;
+
+	    // Find the starting position.
+	    for (int r = 0; r < cave.length; r++) {
+	        for (int c = 0; c < cave[r].length; c++) {
+	            if (cave[r][c] == 'S') {
+	                row = r;
+	                col = c;
+	            }
+	        }
+	    }
+
+	    if (row == -1) {
+	        return false;
+	    }
+
+	    boolean[][] visited =
+	            new boolean[cave.length][cave[0].length];
+
+	    // North, east, south, west.
+	    int[] rowChange = {-1, 0, 1, 0};
+	    int[] colChange = {0, 1, 0, -1};
+	    char[] direction = {'n', 'e', 's', 'w'};
+
+	    while (true) {
+	        visited[row][col] = true;
+	        boolean moved = false;
+
+	        for (int i = 0; i < direction.length; i++) {
+	            int nextRow = row + rowChange[i];
+	            int nextCol = col + colChange[i];
+
+	            // Skip positions outside the cave.
+	            if (nextRow < 0 || nextRow >= cave.length
+	                    || nextCol < 0
+	                    || nextCol >= cave[nextRow].length) {
+	                continue;
+	            }
+
+	            char next = cave[nextRow][nextCol];
+
+	            if (!visited[nextRow][nextCol]
+	                    && (next == '.' || next == 'M')) {
+	                boolean foundPool = next == 'M';
+
+	                // Leave a mark behind and move S forward.
+	                cave[row][col] = '+';
+	                row = nextRow;
+	                col = nextCol;
+	                cave[row][col] = 'S';
+
+	                path += direction[i];
+	                moved = true;
+
+	                if (foundPool) {
+	                    return true;
+	                }
+
+	                break;
+	            }
+	        }
+
+	        // A dead end means the pool cannot be reached.
+	        if (!moved) {
+	            path = "";
+	            return false;
+	        }
+	    }
+	}
 	// Step 4: getPath method
 	
 	// Step 5: One parameter constructor to read from a file
@@ -52,7 +125,14 @@ public class CaveExplorer {
 		
 		CaveExplorer ce1 = new CaveExplorer();
 
+		System.out.println("Starting layout:");
 		System.out.print(ce1);
+
+		boolean solved = ce1.solve();
+
+		System.out.println("Final layout:");
+		System.out.print(ce1);
+		System.out.println("Pool found: " + solved);
 		// Create a CaveExplorer object and print the starting layout
 		
 		// Call solve
