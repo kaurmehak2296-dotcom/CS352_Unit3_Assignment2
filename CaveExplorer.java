@@ -15,7 +15,19 @@ public class CaveExplorer {
 	    };
 	}
 	// Step 2: toString method
-	
+	@Override
+	public String toString() {
+	    String result = "";
+
+	    for (int row = 0; row < cave.length; row++) {
+	        for (int col = 0; col < cave[row].length; col++) {
+	            result += cave[row][col];
+	        }
+	        result += "\n";
+	    }
+
+	    return result;
+	}
 	// Step 3: solve method
 	
 	// Step 4: getPath method
@@ -40,10 +52,7 @@ public class CaveExplorer {
 		
 		CaveExplorer ce1 = new CaveExplorer();
 
-		System.out.println("Rows: " + ce1.cave.length);
-		System.out.println("Columns: " + ce1.cave[0].length);
-		System.out.println("Starting position: " + ce1.cave[1][3]);
-		
+		System.out.print(ce1);
 		// Create a CaveExplorer object and print the starting layout
 		
 		// Call solve
