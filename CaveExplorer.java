@@ -104,6 +104,9 @@ public class CaveExplorer {
 	    }
 	}
 	// Step 4: getPath method
+	public String getPath() {
+	    return path;
+	}
 	
 	// Step 5: One parameter constructor to read from a file
 	/*
@@ -133,6 +136,7 @@ public class CaveExplorer {
 		System.out.println("Final layout:");
 		System.out.print(ce1);
 		System.out.println("Pool found: " + solved);
+		System.out.println("Path: " + ce1.getPath());
 		// Create a CaveExplorer object and print the starting layout
 		
 		// Call solve
