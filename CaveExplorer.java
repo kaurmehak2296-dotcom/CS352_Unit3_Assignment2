@@ -109,59 +109,54 @@ public class CaveExplorer {
 	}
 	
 	// Step 5: One parameter constructor to read from a file
-	/*
-	public CaveExplorer (String fname) throws Exception {
-	      Scanner in = new Scanner(new File(fname));
+	public CaveExplorer(String fname) throws FileNotFoundException {
+	    try (Scanner in = new Scanner(new File(fname))) {
+	        int rows = in.nextInt();
+	        int cols = in.nextInt();
+	        in.nextLine();
 
-	      int rows = in.nextInt();
-	      int cols = in.nextInt();  
-    	  String s = in.nextLine(); // Skip newline character
-    	   	  
-    	  // Construct cave and populate with rest of data in the file
-    	  
+	        cave = new char[rows][cols];
+
+	        for (int row = 0; row < rows; row++) {
+	            String line = in.nextLine();
+
+	            for (int col = 0; col < cols; col++) {
+	                cave[row][col] = line.charAt(col);
+	            }
+	        }
+	    }
 	}
-	*/
-
 	
 	public static void main(String[] args) {
-		System.out.println("Starting CaveExplorer");
-		
-		CaveExplorer ce1 = new CaveExplorer();
+	    System.out.println("CAVE 1: Hardcoded cave");
 
-		System.out.println("Starting layout:");
-		System.out.print(ce1);
+	    CaveExplorer ce1 = new CaveExplorer();
+	    System.out.println("Starting layout:");
+	    System.out.print(ce1);
 
-		boolean solved = ce1.solve();
+	    boolean solved1 = ce1.solve();
 
-		System.out.println("Final layout:");
-		System.out.print(ce1);
-		System.out.println("Pool found: " + solved);
-		System.out.println("Path: " + ce1.getPath());
-		// Create a CaveExplorer object and print the starting layout
-		
-		// Call solve
-		
-		// Print the final layout, whether there is a path, and if so, what it is.
-		
-		// Step 5/6: Repeat for a different CaveExplorer object read from a file
-		// Uncomment code below to start testing your 1-parameter constructor
+	    System.out.println("Final layout:");
+	    System.out.print(ce1);
+	    System.out.println("Pool found: " + solved1);
+	    System.out.println("Path: " + ce1.getPath());
 
-		/*
-		String fileName = "testdat.txt"; 
-		try { 
-			CaveExplorer ce2 = new CaveExplorer(fileName); 
-		} 
-		catch (FileNotFoundException e ) {
-			System.out.println("Can't find file " + fileName); 
-		}
-		catch (Exception e) {
-			System.out.println("Other error: " + e.getMessage());
-		}
-		*/
-		 
+	    System.out.println("\nCAVE 2: File cave");
 
-		
-		System.out.println("Finished CaveExplorer");
+	    try {
+	        CaveExplorer ce2 = new CaveExplorer("testdat.txt");
+
+	        System.out.println("Starting layout:");
+	        System.out.print(ce2);
+
+	        boolean solved2 = ce2.solve();
+
+	        System.out.println("Final layout:");
+	        System.out.print(ce2);
+	        System.out.println("Pool found: " + solved2);
+	        System.out.println("Path: " + ce2.getPath());
+	    } catch (FileNotFoundException e) {
+	        System.out.println("Cannot find testdat.txt.");
+	    }
 	}
-
 }
