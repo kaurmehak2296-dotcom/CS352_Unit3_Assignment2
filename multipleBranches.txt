@@ -1,0 +1,8 @@
+7 9
+RRRRRRRRR
+RS......R
+R.RRRRR.R
+R.RM..R.R
+R.RRR.R.R
+R.....R.R
+RRRRRRRRR
